@@ -1,0 +1,250 @@
+import { prisma } from "@/lib/prisma";
+import { VoiceCategory, VoiceProvider } from "@/generated/prisma/client";
+
+const predefinedVoices = [
+  // Female voices - Turkish
+  {
+    name: "Ayşe",
+    slug: "ayse-tr",
+    category: VoiceCategory.FEMALE,
+    provider: VoiceProvider.ELEVENLABS,
+    accent: "İstanbul",
+    language: "tr",
+    previewUrl: "/audio/voices/ayse-preview.mp3",
+    avatarUrl: "/avatars/voices/ayse.jpg",
+    isPremium: false,
+    metadata: { pitchRange: { min: -10, max: 10 }, speedRange: { min: 0.5, max: 2.0 } },
+  },
+  {
+    name: "Zeynep",
+    slug: "zeynep-tr",
+    category: VoiceCategory.FEMALE,
+    provider: VoiceProvider.ELEVENLABS,
+    accent: "Ankara",
+    language: "tr",
+    previewUrl: "/audio/voices/zeynep-preview.mp3",
+    avatarUrl: "/avatars/voices/zeynep.jpg",
+    isPremium: false,
+    metadata: { pitchRange: { min: -8, max: 12 }, speedRange: { min: 0.5, max: 2.0 } },
+  },
+  {
+    name: "Elif",
+    slug: "elif-tr",
+    category: VoiceCategory.FEMALE,
+    provider: VoiceProvider.ELEVENLABS,
+    accent: "İzmir",
+    language: "tr",
+    previewUrl: "/audio/voices/elif-preview.mp3",
+    avatarUrl: "/avatars/voices/elif.jpg",
+    isPremium: true,
+    metadata: { pitchRange: { min: -12, max: 8 }, speedRange: { min: 0.5, max: 2.0 } },
+  },
+  {
+    name: "Sarah",
+    slug: "sarah-en",
+    category: VoiceCategory.FEMALE,
+    provider: VoiceProvider.ELEVENLABS,
+    accent: "American",
+    language: "en",
+    previewUrl: "/audio/voices/sarah-preview.mp3",
+    avatarUrl: "/avatars/voices/sarah.jpg",
+    isPremium: false,
+    metadata: { pitchRange: { min: -10, max: 10 }, speedRange: { min: 0.5, max: 2.0 } },
+  },
+  {
+    name: "Emma",
+    slug: "emma-en",
+    category: VoiceCategory.FEMALE,
+    provider: VoiceProvider.ELEVENLABS,
+    accent: "British",
+    language: "en",
+    previewUrl: "/audio/voices/emma-preview.mp3",
+    avatarUrl: "/avatars/voices/emma.jpg",
+    isPremium: false,
+    metadata: { pitchRange: { min: -8, max: 12 }, speedRange: { min: 0.5, max: 2.0 } },
+  },
+  {
+    name: "Aria",
+    slug: "aria-en",
+    category: VoiceCategory.FEMALE,
+    provider: VoiceProvider.ELEVENLABS,
+    accent: "Australian",
+    language: "en",
+    previewUrl: "/audio/voices/aria-preview.mp3",
+    avatarUrl: "/avatars/voices/aria.jpg",
+    isPremium: true,
+    metadata: { pitchRange: { min: -10, max: 10 }, speedRange: { min: 0.5, max: 2.0 } },
+  },
+  // Male voices - Turkish
+  {
+    name: "Mehmet",
+    slug: "mehmet-tr",
+    category: VoiceCategory.MALE,
+    provider: VoiceProvider.ELEVENLABS,
+    accent: "İstanbul",
+    language: "tr",
+    previewUrl: "/audio/voices/mehmet-preview.mp3",
+    avatarUrl: "/avatars/voices/mehmet.jpg",
+    isPremium: false,
+    metadata: { pitchRange: { min: -12, max: 8 }, speedRange: { min: 0.5, max: 2.0 } },
+  },
+  {
+    name: "Can",
+    slug: "can-tr",
+    category: VoiceCategory.MALE,
+    provider: VoiceProvider.ELEVENLABS,
+    accent: "Ankara",
+    language: "tr",
+    previewUrl: "/audio/voices/can-preview.mp3",
+    avatarUrl: "/avatars/voices/can.jpg",
+    isPremium: false,
+    metadata: { pitchRange: { min: -10, max: 10 }, speedRange: { min: 0.5, max: 2.0 } },
+  },
+  {
+    name: "Burak",
+    slug: "burak-tr",
+    category: VoiceCategory.MALE,
+    provider: VoiceProvider.ELEVENLABS,
+    accent: "İzmir",
+    language: "tr",
+    previewUrl: "/audio/voices/burak-preview.mp3",
+    avatarUrl: "/avatars/voices/burak.jpg",
+    isPremium: true,
+    metadata: { pitchRange: { min: -15, max: 5 }, speedRange: { min: 0.5, max: 2.0 } },
+  },
+  {
+    name: "James",
+    slug: "james-en",
+    category: VoiceCategory.MALE,
+    provider: VoiceProvider.ELEVENLABS,
+    accent: "British",
+    language: "en",
+    previewUrl: "/audio/voices/james-preview.mp3",
+    avatarUrl: "/avatars/voices/james.jpg",
+    isPremium: false,
+    metadata: { pitchRange: { min: -12, max: 8 }, speedRange: { min: 0.5, max: 2.0 } },
+  },
+  {
+    name: "Michael",
+    slug: "michael-en",
+    category: VoiceCategory.MALE,
+    provider: VoiceProvider.ELEVENLABS,
+    accent: "American",
+    language: "en",
+    previewUrl: "/audio/voices/michael-preview.mp3",
+    avatarUrl: "/avatars/voices/michael.jpg",
+    isPremium: false,
+    metadata: { pitchRange: { min: -10, max: 10 }, speedRange: { min: 0.5, max: 2.0 } },
+  },
+  {
+    name: "David",
+    slug: "david-en",
+    category: VoiceCategory.MALE,
+    provider: VoiceProvider.ELEVENLABS,
+    accent: "Irish",
+    language: "en",
+    previewUrl: "/audio/voices/david-preview.mp3",
+    avatarUrl: "/avatars/voices/david.jpg",
+    isPremium: true,
+    metadata: { pitchRange: { min: -12, max: 8 }, speedRange: { min: 0.5, max: 2.0 } },
+  },
+  // Neutral voices
+  {
+    name: "Alex",
+    slug: "alex-en",
+    category: VoiceCategory.NEUTRAL,
+    provider: VoiceProvider.ELEVENLABS,
+    accent: "American",
+    language: "en",
+    previewUrl: "/audio/voices/alex-preview.mp3",
+    avatarUrl: "/avatars/voices/alex.jpg",
+    isPremium: false,
+    metadata: { pitchRange: { min: -8, max: 8 }, speedRange: { min: 0.5, max: 2.0 } },
+  },
+  {
+    name: "Taylor",
+    slug: "taylor-en",
+    category: VoiceCategory.NEUTRAL,
+    provider: VoiceProvider.ELEVENLABS,
+    accent: "Canadian",
+    language: "en",
+    previewUrl: "/audio/voices/taylor-preview.mp3",
+    avatarUrl: "/avatars/voices/taylor.jpg",
+    isPremium: true,
+    metadata: { pitchRange: { min: -10, max: 10 }, speedRange: { min: 0.5, max: 2.0 } },
+  },
+  // Edge TTS voices (Free)
+  {
+    name: "Edge Turkish Female",
+    slug: "edge-tr-female",
+    category: VoiceCategory.FEMALE,
+    provider: VoiceProvider.EDGE_TTS,
+    accent: "Standard",
+    language: "tr",
+    previewUrl: null,
+    avatarUrl: "/avatars/voices/edge-female.jpg",
+    isPremium: false,
+    metadata: { pitchRange: { min: -5, max: 5 }, speedRange: { min: 0.5, max: 2.0 } },
+  },
+  {
+    name: "Edge Turkish Male",
+    slug: "edge-tr-male",
+    category: VoiceCategory.MALE,
+    provider: VoiceProvider.EDGE_TTS,
+    accent: "Standard",
+    language: "tr",
+    previewUrl: null,
+    avatarUrl: "/avatars/voices/edge-male.jpg",
+    isPremium: false,
+    metadata: { pitchRange: { min: -5, max: 5 }, speedRange: { min: 0.5, max: 2.0 } },
+  },
+  {
+    name: "Edge English Female",
+    slug: "edge-en-female",
+    category: VoiceCategory.FEMALE,
+    provider: VoiceProvider.EDGE_TTS,
+    accent: "American",
+    language: "en",
+    previewUrl: null,
+    avatarUrl: "/avatars/voices/edge-female.jpg",
+    isPremium: false,
+    metadata: { pitchRange: { min: -5, max: 5 }, speedRange: { min: 0.5, max: 2.0 } },
+  },
+  {
+    name: "Edge English Male",
+    slug: "edge-en-male",
+    category: VoiceCategory.MALE,
+    provider: VoiceProvider.EDGE_TTS,
+    accent: "American",
+    language: "en",
+    previewUrl: null,
+    avatarUrl: "/avatars/voices/edge-male.jpg",
+    isPremium: false,
+    metadata: { pitchRange: { min: -5, max: 5 }, speedRange: { min: 0.5, max: 2.0 } },
+  },
+];
+
+export async function seedVoices() {
+  console.log("Seeding voices...");
+  
+  for (const voice of predefinedVoices) {
+    await prisma.voice.upsert({
+      where: { slug: voice.slug },
+      update: voice,
+      create: voice,
+    });
+  }
+  
+  console.log(`Seeded ${predefinedVoices.length} voices`);
+}
+
+if (import.meta.url === `file://${process.argv[1]}`) {
+  seedVoices()
+    .catch((e) => {
+      console.error(e);
+      process.exit(1);
+    })
+    .finally(async () => {
+      await prisma.$disconnect();
+    });
+}
