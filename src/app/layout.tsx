@@ -26,6 +26,9 @@ export const metadata: Metadata = {
     description: "Profesyonel kalitede faceless kısa videolar üretin.",
     type: "website",
   },
+  other: {
+    "material-icons": "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap",
+  },
 };
 
 export default function RootLayout({
