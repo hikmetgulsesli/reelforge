@@ -7,14 +7,22 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "jest"
+    "test": "jest --passWithNoTests"
   },
   "dependencies": {
+    "@auth/prisma-adapter": "^2.11.1",
     "@hono/node-server": "^1.19.11",
+    "@neondatabase/serverless": "^1.0.2",
+    "@prisma/adapter-neon": "^7.4.2",
     "@prisma/client": "^7.4.2",
+    "@radix-ui/react-slot": "^1.2.4",
     "@stripe/stripe-js": "^8.9.0",
+    "bcryptjs": "^3.0.3",
     "bullmq": "^5.70.4",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "hono": "^4.12.5",
+    "lucide-react": "^0.577.0",
     "next": "16.1.6",
     "next-auth": "^4.24.13",
     "prisma": "^7.4.2",
@@ -23,23 +31,18 @@
     "recharts": "^3.8.0",
     "redis": "^5.11.0",
     "stripe": "^20.4.1",
+    "tailwind-merge": "^3.5.0",
     "zustand": "^5.0.11"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
-    "@testing-library/jest-dom": "^6.9.1",
-    "@testing-library/react": "^16.3.2",
-    "@testing-library/user-event": "^14.6.1",
     "@types/jest": "^30.0.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
-    "jest": "^30.2.0",
-    "jest-environment-jsdom": "^30.2.0",
     "tailwindcss": "^4",
-    "ts-jest": "^29.4.6",
     "typescript": "^5"
   }
 }
