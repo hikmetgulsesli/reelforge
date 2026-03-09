@@ -48,6 +48,10 @@ model User {
   updatedAt     DateTime  @updatedAt @map("updated_at")
   accounts      Account[]
   sessions      Session[]
+  videos        Video[]
+  series        Series[]
+  credits       UserCredits?
+  renderJobs    RenderJob[]
 
   @@map("users")
 }
@@ -59,4 +63,118 @@ model VerificationToken {
 
   @@unique([identifier, token])
   @@map("verificationtokens")
+}
+
+model Script {
+  id          String   @id @default(cuid())
+  userId      String   @map("user_id")
+  title       String
+  content     String   @db.Text
+  niche       String?
+  tone        String?
+  duration    Int      @default(60)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("scripts")
+}
+
+model Video {
+  id            String      @id @default(cuid())
+  userId        String      @map("user_id")
+  seriesId      String?     @map("series_id")
+  title         String
+  description   String?     @db.Text
+  scriptContent String?     @map("script_content") @db.Text
+  thumbnailUrl  String?     @map("thumbnail_url")
+  videoUrl      String?     @map("video_url")
+  status        VideoStatus @default(draft)
+  duration      Int         @default(60)
+  platform      String      @default("tiktok")
+  style         String?
+  voiceId       String?     @map("voice_id")
+  musicId       String?     @map("music_id")
+  hasSubtitles  Boolean     @default(false) @map("has_subtitles")
+  createdAt     DateTime    @default(now()) @map("created_at")
+  updatedAt     DateTime    @updatedAt @map("updated_at")
+  publishedAt   DateTime?   @map("published_at")
+  
+  user       User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  series     Series?       @relation(fields: [seriesId], references: [id], onDelete: SetNull)
+  renderJobs RenderJob[]
+  
+  @@index([userId])
+  @@index([status])
+  @@map("videos")
+}
+
+model Series {
+  id          String   @id @default(cuid())
+  userId      String   @map("user_id")
+  name        String
+  description String?  @db.Text
+  niche       String?
+  isActive    Boolean  @default(true) @map("is_active")
+  videoCount  Int      @default(0) @map("video_count")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  videos Video[]
+  
+  @@index([userId])
+  @@map("series")
+}
+
+model UserCredits {
+  id            String   @id @default(cuid())
+  userId        String   @unique @map("user_id")
+  totalCredits  Int      @default(3) @map("total_credits")
+  usedCredits   Int      @default(0) @map("used_credits")
+  plan          String   @default("free")
+  expiresAt     DateTime? @map("expires_at")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("user_credits")
+}
+
+model RenderJob {
+  id        String    @id @default(cuid())
+  userId    String    @map("user_id")
+  videoId   String    @map("video_id")
+  status    JobStatus @default(pending)
+  progress  Int       @default(0)
+  stage     String?
+  error     String?   @db.Text
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  completedAt DateTime? @map("completed_at")
+  
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  video Video @relation(fields: [videoId], references: [id], onDelete: Cascade)
+  
+  @@index([userId])
+  @@index([videoId])
+  @@index([status])
+  @@map("render_jobs")
+}
+
+enum VideoStatus {
+  draft
+  processing
+  completed
+  failed
+  published
+}
+
+enum JobStatus {
+  pending
+  processing
+  completed
+  failed
 }
