@@ -49,6 +49,32 @@ export default async function DashboardPage() {
         <p className="text-[var(--color-text-muted-dark)]">
           Welcome back, {session.user?.name || session.user?.email}!
         </p>
+        {/* Quick Links */}
+        <div className="mt-8">
+          <h2 className="text-xl font-semibold text-[var(--color-text-main-dark)] mb-4">
+            Quick Actions
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <Link
+              href="/dashboard/ab-testing"
+              className="flex items-center gap-3 p-4 rounded-xl bg-[var(--color-surface-dark)] border border-[var(--color-border-dark)] hover:border-[var(--color-primary)] transition-colors group"
+            >
+              <div className="w-10 h-10 rounded-lg bg-[var(--color-primary)]/10 flex items-center justify-center">
+                <span className="material-symbols-outlined text-[var(--color-primary)]">science</span>
+              </div>
+              <div>
+                <p className="font-medium text-[var(--color-text-main-dark)] group-hover:text-[var(--color-primary)] transition-colors">
+                  A/B Testing
+                </p>
+                <p className="text-sm text-[var(--color-text-muted-dark)]">
+                  Optimize content
+                </p>
+              </div>
+            </Link>
+          </div>
+        </div>
+
+        {/* Stats */}
         <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-[var(--color-surface-dark)] rounded-xl p-6 border border-[var(--color-border-dark)]">
             <h3 className="text-lg font-semibold text-[var(--color-text-main-dark)] mb-2">
