@@ -3,7 +3,7 @@
   --color-primary: #e02485;
   --color-background-light: #f8f6f7;
   --color-background-dark: #211119;
-  --font-display: Space Grotesk, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
   --radius-DEFAULT: 0.25rem;
   --radius-lg: 0.5rem;
   --radius-xl: 0.75rem;
@@ -13,11 +13,11 @@
   --color-surface-hover: #2b2249;
   --color-text-light: #1b0e11;
   --color-text-muted: #c7949f;
-  --font-body: DM Sans, sans-serif;
+  --font-body: "DM Sans", sans-serif;
   --color-surface-light: #f8f6f6;
   --color-border-light: #f3e8ea;
   --color-border-dark: #46252c;
-  --font-data: DM Sans, sans-serif;
+  --font-data: "DM Sans", sans-serif;
   --color-surface-darker: #1a0d10;
   --color-primary-light: #fff1f2;
   --color-primary-dark: #be123c;
@@ -28,8 +28,4 @@
   --color-text-dark: #fdf8f9;
   --color-slate-900: #1b0e15;
   --color-slate-100: #f3e8ed;
-  --font-google-0: Space Grotesk;
-  --font-google-1: DM Sans:opsz,wght@9..40,100..1000;
-  --font-google-2: DM Sans;
-  --font-google-3: DM Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000;
 }
