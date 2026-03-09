@@ -51,18 +51,7 @@
   }
 }
 
-/* Dark mode class support */
-.dark {
-  --background: var(--color-background-dark);
-  --foreground: var(--color-text-main-dark);
-  --surface: var(--color-surface-dark);
-  --surface-hover: var(--color-surface-hover);
-  --surface-darker: var(--color-surface-darker);
-  --text-main: var(--color-text-main-dark);
-  --text-muted: var(--color-text-muted-dark);
-  --border: var(--color-border-dark);
-}
-
+/* Light mode class support */
 .light {
   --background: var(--color-background-light);
   --foreground: var(--color-text-main-light);

@@ -2,46 +2,23 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div
-      className="flex min-h-screen flex-col"
-      style={{
-        background: "var(--background)",
-        color: "var(--text-main)",
-      }}
-    >
+    <div className="flex min-h-screen flex-col bg-background text-text-main">
       {/* Header */}
-      <header
-        className="sticky top-0 z-50 border-b px-6 py-4"
-        style={{
-          background: "var(--surface)",
-          borderColor: "var(--border)",
-        }}
-      >
+      <header className="sticky top-0 z-50 border-b border-border bg-surface px-6 py-4">
         <div className="mx-auto flex max-w-7xl items-center justify-between">
-          <h1
-            className="text-2xl font-bold"
-            style={{
-              fontFamily: "var(--font-display)",
-              color: "var(--primary)",
-            }}
-          >
+          <h1 className="font-display text-2xl font-bold text-primary">
             ReelForge
           </h1>
           <nav className="flex items-center gap-4">
             <Link
               href="/login"
-              className="rounded px-4 py-2 text-sm font-medium transition-colors hover:opacity-80"
-              style={{ color: "var(--text-muted)" }}
+              className="rounded px-4 py-2 text-sm font-medium text-text-muted transition-colors hover:opacity-80"
             >
               Giriş Yap
             </Link>
             <Link
               href="/register"
-              className="rounded px-4 py-2 text-sm font-medium transition-opacity hover:opacity-90"
-              style={{
-                background: "var(--primary)",
-                color: "white",
-              }}
+              className="rounded bg-primary px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90"
             >
               Kayıt Ol
             </Link>
@@ -52,38 +29,24 @@ export default function Home() {
       {/* Hero Section */}
       <main className="flex flex-1 flex-col items-center justify-center px-6 py-24">
         <div className="mx-auto max-w-4xl text-center">
-          <h2
-            className="mb-6 text-5xl font-bold leading-tight md:text-6xl"
-            style={{ fontFamily: "var(--font-display)" }}
-          >
+          <h2 className="font-display mb-6 text-5xl font-bold leading-tight md:text-6xl">
             AI ile Faceless Video{" "}
-            <span style={{ color: "var(--primary)" }}>Üretin</span>
+            <span className="text-primary">Üretin</span>
           </h2>
-          <p
-            className="mb-8 text-lg md:text-xl"
-            style={{ color: "var(--text-muted)" }}
-          >
+          <p className="mb-8 text-lg text-text-muted md:text-xl">
             Tek bir metin promptu ile profesyonel kalitede YouTube Shorts, TikTok
             ve Instagram Reels videoları oluşturun.
           </p>
           <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
               href="/register"
-              className="rounded px-8 py-3 text-base font-medium transition-opacity hover:opacity-90"
-              style={{
-                background: "var(--primary)",
-                color: "white",
-              }}
+              className="rounded bg-primary px-8 py-3 text-base font-medium text-white transition-opacity hover:opacity-90"
             >
               Ücretsiz Başla
             </Link>
             <Link
               href="/pricing"
-              className="rounded border px-8 py-3 text-base font-medium transition-colors hover:opacity-80"
-              style={{
-                borderColor: "var(--border)",
-                color: "var(--text-main)",
-              }}
+              className="rounded border border-border px-8 py-3 text-base font-medium text-text-main transition-colors hover:opacity-80"
             >
               Fiyatları Gör
             </Link>
@@ -105,37 +68,24 @@ export default function Home() {
               title: "TTS Seslendirme",
               desc: "AI seslendirme",
             },
-          ].map((feature, i) => (
+          ].map((feature) => (
             <div
-              key={i}
-              className="rounded-lg border p-6 transition-colors hover:border-opacity-50"
-              style={{
-                background: "var(--surface)",
-                borderColor: "var(--border)",
-              }}
+              key={feature.title}
+              className="rounded-lg border border-border bg-surface p-6 transition-colors hover:border-opacity-50"
             >
-              <h3
-                className="mb-2 text-lg font-semibold"
-                style={{ fontFamily: "var(--font-display)" }}
-              >
+              <h3 className="font-display mb-2 text-lg font-semibold">
                 {feature.title}
               </h3>
-              <p style={{ color: "var(--text-muted)" }}>{feature.desc}</p>
+              <p className="text-text-muted">{feature.desc}</p>
             </div>
           ))}
         </div>
       </main>
 
       {/* Footer */}
-      <footer
-        className="border-t px-6 py-8"
-        style={{
-          background: "var(--surface-darker)",
-          borderColor: "var(--border)",
-        }}
-      >
+      <footer className="border-t border-border bg-surface-darker px-6 py-8">
         <div className="mx-auto max-w-7xl text-center">
-          <p style={{ color: "var(--text-muted)" }}>
+          <p className="text-text-muted">
             © 2025 ReelForge. Tüm hakları saklıdır.
           </p>
         </div>
