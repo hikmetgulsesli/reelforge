@@ -1,3 +1,5 @@
+"use client";
+
 import { AssetsStep } from "@/components/wizard/AssetsStep";
 
 export default function AssetsPage() {

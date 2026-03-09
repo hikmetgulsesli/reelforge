@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "@/components/ui/button";
 
 export interface Scene {
@@ -60,7 +60,6 @@ export function WizardProgress({
 
 interface WizardNavigationProps {
   currentStep: number;
-  totalSteps: number;
   onPrevious?: () => void;
   onNext?: () => void;
   nextLabel?: string;
@@ -71,7 +70,6 @@ interface WizardNavigationProps {
 
 export function WizardNavigation({
   currentStep,
-  totalSteps,
   onPrevious,
   onNext,
   nextLabel = "Continue",
@@ -79,8 +77,6 @@ export function WizardNavigation({
   showRegenerateAll = false,
   onRegenerateAll,
 }: WizardNavigationProps) {
-  const isLastStep = currentStep === totalSteps;
-
   return (
     <div className="flex justify-end items-center gap-4 mt-auto pt-6 border-t" style={{ borderColor: "var(--color-border)" }}>
       {showPrevious && currentStep > 1 && (

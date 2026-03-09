@@ -174,7 +174,7 @@ describe('ReviewStep - Wizard Step 7', () => {
   // Test 7: Estimated time remaining
   describe('7. Estimated time remaining', () => {
     it('should display estimated duration', () => {
-      useWizardStore.getState().setScript('word ' .repeat(150));
+      useWizardStore.getState().setScript('word '.repeat(150));
       render(<ReviewStep />);
       
       expect(screen.getByText(/Tahmini Süre/i)).toBeInTheDocument();
@@ -198,7 +198,7 @@ describe('ReviewStep - Wizard Step 7', () => {
       useWizardStore.getState().startRender();
       render(<ReviewStep />);
       
-      expect(screen.getByText(/Render'ı İptal Et/i)).toBeInTheDocument();
+      expect(screen.getByText(/Render.*ı İptal Et/i)).toBeInTheDocument();
     });
 
     it('should stop rendering when cancel clicked', () => {
@@ -207,7 +207,7 @@ describe('ReviewStep - Wizard Step 7', () => {
       useWizardStore.getState().startRender();
       render(<ReviewStep />);
       
-      const cancelButton = screen.getByText(/Render'ı İptal Et/i);
+      const cancelButton = screen.getByText(/Render.*ı İptal Et/i);
       fireEvent.click(cancelButton);
       
       expect(useWizardStore.getState().isRendering).toBe(false);
@@ -263,7 +263,7 @@ describe('ReviewStep - Wizard Step 7', () => {
       useWizardStore.getState().setUserCredits(10);
       useWizardStore.getState().setAgreedToTerms(true);
       
-      const { container } = render(<ReviewStep />);
+      render(<ReviewStep />);
       
       // Verify main sections exist
       expect(screen.getByText(/İnceleme ve Render/i)).toBeInTheDocument();
