@@ -2,7 +2,12 @@ import { describe, it, expect, beforeAll, afterAll } from "@jest/globals";
 import { prisma } from "../lib/prisma";
 import bcrypt from "bcryptjs";
 
-describe("Authentication System", () => {
+// Skip auth tests if no database is available
+const shouldRunAuthTests = process.env.RUN_INTEGRATION_TESTS === 'true';
+
+const describeAuth = shouldRunAuthTests ? describe : describe.skip;
+
+describeAuth("Authentication System", () => {
   const testUser = {
     name: "Test User",
     email: "test@example.com",
