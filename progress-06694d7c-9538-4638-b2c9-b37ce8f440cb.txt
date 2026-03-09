@@ -1,25 +1,39 @@
-=== US-017: Video Wizard Step 5 - Subtitles ===
-COMPLETED: $(date -Iseconds)
+=== US-018: Video Wizard Step 6 - Music ===
+COMPLETED: 2026-03-09T19:40:00+03:00
 FILES CHANGED:
-- src/components/wizard/SubtitlesStep.tsx (new)
-- src/components/wizard/index.ts (modified)
-- src/app/wizard/video/subtitles/page.tsx (new)
-- src/__tests__/wizard-subtitles-step.test.tsx (new)
+  - src/components/wizard/MusicStep.tsx (new)
+  - src/components/wizard/index.ts (modified)
+  - src/components/wizard/WizardProgress.tsx (new)
+  - src/components/wizard/WizardNavigation.tsx (new)
+  - src/components/wizard/VoiceStep.tsx (new)
+  - src/components/wizard/AssetsStep.tsx (new)
+  - src/app/wizard/video/create/page.tsx (new)
+  - src/app/wizard/video/voice/page.tsx (new)
+  - src/__tests__/wizard-music-step.test.tsx (new)
+  - src/__tests__/wizard-assets-step.test.tsx (new)
+  - src/__tests__/wizard-voice-step.test.tsx (new)
 
 KEY DECISIONS:
-- Implemented 10 preset subtitle styles (Modern Kalin, Klasik Sari, Neon Parilti, etc.)
-- Used lucide-react icons (AlignStartVertical, AlignCenterVertical, AlignEndVertical for position)
-- Created live preview component with mock video background
-- Used Space Grotesk + DM Sans font pair from design tokens
-- Followed existing color palette with --color-primary (magenta/rose)
-- Implemented color pickers with hex input and quick preset buttons
-- Animation toggle uses accessible switch role
+  - Created MusicStep component with full music selection UI
+  - Implemented category filter tabs (Upbeat, Dramatic, Chill, Epic, Lo-fi)
+  - Added music track list with album art, artist, duration
+  - Implemented play preview with waveform visualization
+  - Added volume slider with voice ducking (inverse percentage display)
+  - Implemented fade in/out duration inputs (0-10 seconds)
+  - Added AI recommendation toggle with suggested tracks
+  - Implemented recently used tracks section
+  - Created wizard page route at /wizard/video/create
+  - Fixed wizard component exports and module resolution for Next.js
 
 DEPENDENCIES ADDED:
-- None (used existing dependencies)
+  - None (used existing dependencies)
 
 TESTS:
-- 27 passing tests covering all acceptance criteria
-- Tests for preset selection, color pickers, font selection, animation toggle, position selection
+  - Comprehensive tests for MusicStep component (20+ tests passing)
+  - Tests for track selection functionality
+  - Tests for category filtering
+  - Tests for play preview functionality
+  - Tests for volume/voice ducking controls
+  - Tests for AI recommendation toggle
 
-PR URL: https://github.com/hikmetgulsesli/reelforge/pull/12
+PR_URL: https://github.com/hikmetgulsesli/reelforge/pull/13
