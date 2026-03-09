@@ -1,8 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { ChevronDown, ChevronRight, Menu, X } from "lucide-react";
 
 interface SidebarProps {
   user?: {
@@ -21,9 +22,16 @@ const navItems = [
   { href: "/dashboard/series", label: "Seriler", icon: "folder" },
   { href: "/dashboard/calendar", label: "Takvim", icon: "calendar" },
   { href: "/dashboard/analytics", label: "Analizler", icon: "chart" },
-  { href: "/dashboard/niche-analysis", label: "Niş Analizi", icon: "target" },
+  { href: "/dashboard/niche", label: "Niş Analizi", icon: "target" },
   { href: "/dashboard/ab-tests", label: "A/B Testler", icon: "test" },
-  { href: "/dashboard/settings", label: "Ayarlar", icon: "settings" },
+];
+
+const settingsItems = [
+  { href: "/dashboard/settings", label: "Genel", icon: "settings" },
+  { href: "/dashboard/settings/profile", label: "Profil", icon: "user" },
+  { href: "/dashboard/settings/account", label: "Hesap", icon: "account" },
+  { href: "/dashboard/settings/notifications", label: "Bildirimler", icon: "bell" },
+  { href: "/dashboard/settings/billing", label: "Faturalama", icon: "card" },
 ];
 
 const icons: Record<string, React.ReactNode> = {
@@ -73,13 +81,170 @@ const icons: Record<string, React.ReactNode> = {
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
     </svg>
   ),
+  user: (
+    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+    </svg>
+  ),
+  account: (
+    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+  ),
+  bell: (
+    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+    </svg>
+  ),
+  card: (
+    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+    </svg>
+  ),
+  menu: (
+    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+    </svg>
+  ),
 };
 
 export function Sidebar({ user, credits = 3, plan = "Free" }: SidebarProps) {
   const pathname = usePathname();
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
+
+  const isSettingsActive = pathname.startsWith("/dashboard/settings");
+
+  const renderNavItem = (item: { href: string; label: string; icon: string }) => {
+    const isActive = pathname === item.href || 
+      (item.href !== "/dashboard" && pathname.startsWith(item.href));
+    
+    return (
+      <li key={item.href}>
+        <Link
+          href={item.href}
+          className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+            isActive
+              ? "bg-[var(--color-primary)] text-white"
+              : "text-[var(--color-text-muted-dark)] hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-text-main-dark)]"
+          }`}
+          aria-current={isActive ? "page" : undefined}
+        >
+          {icons[item.icon]}
+          {item.label}
+        </Link>
+      </li>
+    );
+  };
+
+  const renderMobileNavItem = (item: { href: string; label: string; icon: string }) => {
+    const isActive = pathname === item.href || 
+      (item.href !== "/dashboard" && pathname.startsWith(item.href));
+    
+    return (
+      <Link
+        key={item.href}
+        href={item.href}
+        className={`flex flex-col items-center gap-1 px-3 py-2 rounded-lg ${
+          isActive
+            ? "text-[var(--color-primary)]"
+            : "text-[var(--color-text-muted-dark)]"
+        }`}
+        aria-current={isActive ? "page" : undefined}
+      >
+        {icons[item.icon]}
+        <span className="text-xs">{item.label}</span>
+      </Link>
+    );
+  };
 
   return (
     <>
+      {/* Mobile Hamburger Button */}
+      <button
+        onClick={() => setMobileDrawerOpen(true)}
+        className="lg:hidden fixed top-4 left-4 z-30 p-2 rounded-lg bg-[var(--color-surface-dark)] border border-[var(--color-border-dark)] text-[var(--color-text-muted-dark)] hover:text-white transition-colors"
+        aria-label="Menüyü aç"
+      >
+        <Menu className="w-6 h-6" />
+      </button>
+
+      {/* Mobile Drawer Backdrop */}
+      {mobileDrawerOpen && (
+        <div
+          className="lg:hidden fixed inset-0 bg-black/50 z-40"
+          onClick={() => setMobileDrawerOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+
+      {/* Mobile Drawer */}
+      <aside
+        className={`lg:hidden fixed inset-y-0 left-0 z-50 w-72 transform transition-transform duration-300 ease-in-out bg-[var(--color-surface-dark)] border-r border-[var(--color-border-dark)] ${
+          mobileDrawerOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Navigasyon menüsü"
+      >
+        {/* Drawer Header */}
+        <div className="flex items-center justify-between px-4 py-4 border-b border-[var(--color-border-dark)]">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 text-[var(--color-primary)]">
+              <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 6H42L36 24L42 42H6L12 24L6 6Z" fill="currentColor" />
+              </svg>
+            </div>
+            <span className="text-xl font-bold text-[var(--color-text-main-dark)] font-[family-name:var(--font-display)]">
+              ReelForge
+            </span>
+          </div>
+          <button
+            onClick={() => setMobileDrawerOpen(false)}
+            className="p-2 rounded-lg text-[var(--color-text-muted-dark)] hover:bg-[var(--color-surface-hover)] hover:text-white transition-colors"
+            aria-label="Menüyü kapat"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        {/* Mobile Navigation */}
+        <nav className="flex-1 px-3 py-4 overflow-y-auto">
+          <ul className="space-y-1">
+            {navItems.map(renderNavItem)}
+            
+            {/* Collapsible Settings Section */}
+            <li>
+              <button
+                onClick={() => setSettingsOpen(!settingsOpen)}
+                className={`flex items-center justify-between gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors w-full text-left ${
+                  isSettingsActive
+                    ? "bg-[var(--color-primary)] text-white"
+                    : "text-[var(--color-text-muted-dark)] hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-text-main-dark)]"
+                }`}
+                aria-expanded={settingsOpen}
+                aria-controls="mobile-settings-submenu"
+              >
+                <div className="flex items-center gap-3">
+                  {icons.settings}
+                  Ayarlar
+                </div>
+                {settingsOpen ? (
+                  <ChevronDown className="w-4 h-4" />
+                ) : (
+                  <ChevronRight className="w-4 h-4" />
+                )}
+              </button>
+              {settingsOpen && (
+                <ul id="mobile-settings-submenu" className="ml-4 mt-1 space-y-1">
+                  {settingsItems.map(renderNavItem)}
+                </ul>
+              )}
+            </li>
+          </ul>
+        </nav>
+      </aside>
+
       {/* Desktop Sidebar */}
       <aside className="hidden lg:flex flex-col w-64 h-screen bg-[var(--color-surface-dark)] border-r border-[var(--color-border-dark)] fixed left-0 top-0">
         {/* Logo */}
@@ -97,26 +262,36 @@ export function Sidebar({ user, credits = 3, plan = "Free" }: SidebarProps) {
         {/* Navigation */}
         <nav className="flex-1 px-3 py-4 overflow-y-auto">
           <ul className="space-y-1">
-            {navItems.map((item) => {
-              const isActive = pathname === item.href || 
-                (item.href !== "/dashboard" && pathname.startsWith(item.href));
-              
-              return (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                      isActive
-                        ? "bg-[var(--color-primary)] text-white"
-                        : "text-[var(--color-text-muted-dark)] hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-text-main-dark)]"
-                    }`}
-                  >
-                    {icons[item.icon]}
-                    {item.label}
-                  </Link>
-                </li>
-              );
-            })}
+            {navItems.map(renderNavItem)}
+            
+            {/* Collapsible Settings Section */}
+            <li>
+              <button
+                onClick={() => setSettingsOpen(!settingsOpen)}
+                className={`flex items-center justify-between gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors w-full text-left ${
+                  isSettingsActive
+                    ? "bg-[var(--color-primary)] text-white"
+                    : "text-[var(--color-text-muted-dark)] hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-text-main-dark)]"
+                }`}
+                aria-expanded={settingsOpen}
+                aria-controls="settings-submenu"
+              >
+                <div className="flex items-center gap-3">
+                  {icons.settings}
+                  Ayarlar
+                </div>
+                {settingsOpen ? (
+                  <ChevronDown className="w-4 h-4" />
+                ) : (
+                  <ChevronRight className="w-4 h-4" />
+                )}
+              </button>
+              {settingsOpen && (
+                <ul id="settings-submenu" className="ml-4 mt-1 space-y-1">
+                  {settingsItems.map(renderNavItem)}
+                </ul>
+              )}
+            </li>
           </ul>
         </nav>
 
@@ -139,27 +314,9 @@ export function Sidebar({ user, credits = 3, plan = "Free" }: SidebarProps) {
       </aside>
 
       {/* Mobile Bottom Navigation */}
-      <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-[var(--color-surface-dark)] border-t border-[var(--color-border-dark)] z-50">
+      <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-[var(--color-surface-dark)] border-t border-[var(--color-border-dark)] z-30" role="navigation" aria-label="Mobil navigasyon">
         <div className="flex items-center justify-around py-2">
-          {navItems.slice(0, 5).map((item) => {
-            const isActive = pathname === item.href || 
-              (item.href !== "/dashboard" && pathname.startsWith(item.href));
-            
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`flex flex-col items-center gap-1 px-3 py-2 rounded-lg ${
-                  isActive
-                    ? "text-[var(--color-primary)]"
-                    : "text-[var(--color-text-muted-dark)]"
-                }`}
-              >
-                {icons[item.icon]}
-                <span className="text-xs">{item.label}</span>
-              </Link>
-            );
-          })}
+          {navItems.slice(0, 5).map(renderMobileNavItem)}
         </div>
       </nav>
     </>
