@@ -35,10 +35,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="tr" className="dark">
-      <body
-        className={`${spaceGrotesk.variable} ${dmSans.variable} antialiased`}
-        style={{ fontFamily: "var(--font-dm-sans), var(--font-body)" }}
-      >
+      <body className={`${spaceGrotesk.variable} ${dmSans.variable} antialiased`}>
         {children}
       </body>
     </html>
