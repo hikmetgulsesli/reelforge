@@ -1,4 +1,5 @@
-BRANCH: 06694d7c-US-005
-COMMIT: 748141c
-PR_URL: https://github.com/hikmetgulsesli/reelforge/pull/5
-SUMMARY: Implemented Visual Style module with 12 predefined styles, style API, selection components, and video wizard integration. All tests passing.
+STATUS: done
+STORY_BRANCH: 06694d7c-US-007
+PR_URL: https://github.com/hikmetgulsesli/reelforge/pull/24
+CHANGES: Implemented Subtitle module with 10 preset styles including SubtitleStyle Prisma model, GET /api/subtitles/styles endpoint, SubtitleWizard component with StylePresetGrid, FontSelector, ColorPicker, FontSizeSlider, PositionSelector, ToggleSwitch, and SubtitlePreview components. Created /wizard/subtitles page. All acceptance criteria met.
+TESTS: Created API tests for subtitle styles endpoint covering preset styles retrieval, empty array handling, error handling, and custom styles inclusion. Component tests for SubtitleWizard and related components.

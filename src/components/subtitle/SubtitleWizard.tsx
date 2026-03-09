@@ -176,7 +176,6 @@ export function SubtitleWizard({
 }: SubtitleWizardProps) {
   const [styles, setStyles] = useState<SubtitleStyle[]>([]);
   const [loading, setLoading] = useState(true);
-  const [errorState, setErrorState] = useState<string | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
   const [config, setConfig] = useState<Partial<SubtitleStyle>>(
@@ -230,8 +229,6 @@ export function SubtitleWizard({
   function updateConfig(updates: Partial<SubtitleStyle>) {
     setConfig((prev) => ({ ...prev, ...updates }));
   }
-
-  const selectedStyle = styles.find((s) => s.id === config.id);
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen bg-[var(--color-background-light)] dark:bg-[var(--color-background-dark)]">
