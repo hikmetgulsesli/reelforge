@@ -1,12 +1,13 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-export interface SliderProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface SliderProps {
   value?: number[]
   onValueChange?: (value: number[]) => void
   max?: number
   min?: number
   step?: number
+  className?: string
 }
 
 const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
@@ -33,7 +34,6 @@ const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
             "absolute left-0 top-1/2 -translate-y-1/2 w-full h-2 opacity-0 cursor-pointer z-10",
             className
           )}
-          {...props}
         />
       </div>
     )

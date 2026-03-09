@@ -60,6 +60,7 @@ export function WizardProgress({
 
 interface WizardNavigationProps {
   currentStep: number;
+  totalSteps?: number;
   onPrevious?: () => void;
   onNext?: () => void;
   nextLabel?: string;
@@ -70,6 +71,7 @@ interface WizardNavigationProps {
 
 export function WizardNavigation({
   currentStep,
+  totalSteps,
   onPrevious,
   onNext,
   nextLabel = "Continue",
