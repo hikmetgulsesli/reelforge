@@ -60,3 +60,45 @@ model VerificationToken {
   @@unique([identifier, token])
   @@map("verificationtokens")
 }
+
+model ABTest {
+  id          String   @id @default(cuid())
+  name        String
+  description String?  @db.Text
+  status      ABTestStatus @default(DRAFT)
+  startDate   DateTime? @map("start_date")
+  endDate     DateTime? @map("end_date")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  userId      String   @map("user_id")
+  videoId     String?  @map("video_id")
+  winnerId    String?  @map("winner_id")
+  variants    ABVariant[]
+  
+  @@map("ab_tests")
+}
+
+model ABVariant {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  testId      String   @map("test_id")
+  test        ABTest   @relation(fields: [testId], references: [id], onDelete: Cascade)
+  impressions Int      @default(0)
+  views       Int      @default(0)
+  clicks      Int      @default(0)
+  ctr         Float    @default(0.0)
+  retention   Float    @default(0.0)
+  isControl   Boolean  @default(false) @map("is_control")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  
+  @@map("ab_variants")
+}
+
+enum ABTestStatus {
+  DRAFT
+  RUNNING
+  PAUSED
+  COMPLETED
+}
