@@ -1,3 +1,5 @@
+'use client';
+
 import { ReviewStep } from '@/components/wizard';
 
 export default function Page() {
