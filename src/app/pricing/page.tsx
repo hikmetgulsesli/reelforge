@@ -8,7 +8,8 @@ const plans = [
   {
     id: "free",
     name: "Free",
-    price: "₺0",
+    amount: 0,
+    currency: "₺",
     period: "/ay",
     description: "Yeni başlayanlar için ideal",
     features: [
@@ -27,7 +28,8 @@ const plans = [
   {
     id: "starter",
     name: "Starter",
-    price: "₺499",
+    amount: 499,
+    currency: "₺",
     period: "/ay",
     description: "Düzenli içerik üreticileri için",
     features: [
@@ -46,7 +48,8 @@ const plans = [
   {
     id: "pro",
     name: "Pro",
-    price: "₺999",
+    amount: 999,
+    currency: "₺",
     period: "/ay",
     description: "Profesyonel içerik üreticileri için",
     features: [
@@ -65,7 +68,8 @@ const plans = [
   {
     id: "business",
     name: "Business",
-    price: "₺1.999",
+    amount: 1999,
+    currency: "₺",
     period: "/ay",
     description: "Ekipler ve ajanslar için",
     features: [
@@ -82,6 +86,11 @@ const plans = [
     popular: false,
   },
 ];
+
+const formatPrice = (amount: number, currency: string) => {
+  if (amount === 0) return `${currency}0`;
+  return `${currency}${amount.toLocaleString("tr-TR")}`;
+};
 
 export default function PricingPage() {
   const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">("monthly");
@@ -189,8 +198,8 @@ export default function PricingPage() {
                 <div className="mt-4">
                   <span className="text-4xl font-bold text-white font-[family-name:var(--font-display)]">
                     {billingCycle === "yearly"
-                      ? `₺${Math.round(parseInt(plan.price.replace(/[^0-9]/g, "")) * 0.8)}`
-                      : plan.price}
+                      ? formatPrice(Math.round(plan.amount * 0.8), plan.currency)
+                      : formatPrice(plan.amount, plan.currency)}
                   </span>
                   <span className="text-[var(--text-muted)]">{plan.period}</span>
                 </div>

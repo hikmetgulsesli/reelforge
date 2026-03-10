@@ -5,12 +5,12 @@ import { DashboardLayout } from "../../components/layout/DashboardLayout";
 import { Header } from "../../components/layout/Header";
 import { useAppStore } from "../../lib/store";
 import { User, Bell, Shield, CreditCard, Palette, Save } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 
 export default function SettingsPage() {
   const { plan, credits } = useAppStore();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const [activeTab, setActiveTab] = useState("profile");
   const [notifications, setNotifications] = useState({
     email: true,
@@ -18,10 +18,20 @@ export default function SettingsPage() {
     marketing: false,
   });
   const [profile, setProfile] = useState({
-    name: session?.user?.name || "",
-    email: session?.user?.email || "",
+    name: "",
+    email: "",
     language: "tr",
   });
+
+  useEffect(() => {
+    if (session?.user) {
+      setProfile((prev) => ({
+        ...prev,
+        name: session.user?.name || "",
+        email: session.user?.email || "",
+      }));
+    }
+  }, [session]);
 
   const tabs = [
     { id: "profile", name: "Profil", icon: <User className="w-5 h-5" /> },
@@ -35,6 +45,17 @@ export default function SettingsPage() {
     // Save settings
     console.log("Settings saved:", { profile, notifications });
   };
+
+  if (status === "loading") {
+    return (
+      <DashboardLayout>
+        <Header title="Hesap Ayarları" />
+        <div className="flex-1 flex items-center justify-center">
+          <p className="text-[var(--text-muted)]">Yükleniyor...</p>
+        </div>
+      </DashboardLayout>
+    );
+  }
 
   return (
     <DashboardLayout>

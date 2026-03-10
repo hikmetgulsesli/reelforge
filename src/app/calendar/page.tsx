@@ -4,7 +4,7 @@ export const dynamic = "force-dynamic";
 import { DashboardLayout } from "../../components/layout/DashboardLayout";
 import { Header } from "../../components/layout/Header";
 import { ChevronLeft, ChevronRight, PlusCircle, Video, Youtube, Instagram } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const DAYS = ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"];
 const MONTHS = [
@@ -13,11 +13,16 @@ const MONTHS = [
 ];
 
 export default function CalendarPage() {
-  const [currentDate, setCurrentDate] = useState(new Date());
+  const [currentDate, setCurrentDate] = useState(() => new Date());
+  const [today, setToday] = useState(() => new Date());
+
+  useEffect(() => {
+    setToday(new Date());
+  }, []);
 
   // Sample events
   const events = [
-    { id: "1", title: "Tech Tips #5", date: new Date(), platform: "youtube", time: "14:00" },
+    { id: "1", title: "Tech Tips #5", date: today, platform: "youtube", time: "14:00" },
     { id: "2", title: "Motivasyon Günü", date: new Date(currentDate.getFullYear(), currentDate.getMonth(), 15), platform: "tiktok", time: "18:00" },
     { id: "3", title: "Ürün İnceleme", date: new Date(currentDate.getFullYear(), currentDate.getMonth(), 20), platform: "instagram", time: "12:00" },
   ];
@@ -70,9 +75,9 @@ export default function CalendarPage() {
     // Days of the month
     for (let day = 1; day <= daysInMonth; day++) {
       const dayEvents = getEventsForDay(day);
-      const isToday = day === new Date().getDate() && 
-                      currentDate.getMonth() === new Date().getMonth() &&
-                      currentDate.getFullYear() === new Date().getFullYear();
+      const isToday = day === today.getDate() &&
+                      currentDate.getMonth() === today.getMonth() &&
+                      currentDate.getFullYear() === today.getFullYear();
 
       days.push(
         <div
