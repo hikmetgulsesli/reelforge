@@ -49,10 +49,12 @@ export function MusicWizard({ onNext, onPrev }: MusicWizardProps) {
       {/* Music Grid */}
       <div className="space-y-3">
         {MUSIC_OPTIONS.map((music) => (
-          <div
+          <button
+            type="button"
             key={music.id}
             onClick={() => handleSelect(music.id, music.name)}
-            className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all ${
+            aria-pressed={videoDraft.musicId === music.id}
+            className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all w-full text-left ${
               videoDraft.musicId === music.id
                 ? "border-[var(--color-primary)] bg-[var(--color-primary)]/10"
                 : "border-[var(--border)] hover:border-[var(--color-primary)]/50 bg-[var(--background)]"
@@ -88,7 +90,7 @@ export function MusicWizard({ onNext, onPrev }: MusicWizardProps) {
             {videoDraft.musicId === music.id && (
               <Check className="w-5 h-5 text-[var(--color-primary)]" />
             )}
-          </div>
+          </button>
         ))}
       </div>
 

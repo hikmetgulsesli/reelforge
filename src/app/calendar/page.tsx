@@ -4,7 +4,7 @@ export const dynamic = "force-dynamic";
 import { DashboardLayout } from "../../components/layout/DashboardLayout";
 import { Header } from "../../components/layout/Header";
 import { ChevronLeft, ChevronRight, PlusCircle, Video, Youtube, Instagram } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const DAYS = ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"];
 const MONTHS = [
@@ -14,11 +14,7 @@ const MONTHS = [
 
 export default function CalendarPage() {
   const [currentDate, setCurrentDate] = useState(() => new Date());
-  const [today, setToday] = useState(() => new Date());
-
-  useEffect(() => {
-    setToday(new Date());
-  }, []);
+  const [today] = useState(() => new Date());
 
   // Sample events
   const events = [

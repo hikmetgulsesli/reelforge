@@ -151,6 +151,9 @@ export default function PricingPage() {
               onClick={() =>
                 setBillingCycle(billingCycle === "monthly" ? "yearly" : "monthly")
               }
+              role="switch"
+              aria-checked={billingCycle === "yearly"}
+              aria-label="Fatura dönemini aylık ve yıllık arasında değiştir"
               className={`w-14 h-8 rounded-full transition-colors ${
                 billingCycle === "yearly"
                   ? "bg-[var(--color-primary)]"
@@ -206,8 +209,8 @@ export default function PricingPage() {
               </div>
 
               <ul className="space-y-3 mb-6">
-                {plan.features.map((feature, index) => (
-                  <li key={index} className="flex items-center gap-2">
+                {plan.features.map((feature) => (
+                  <li key={feature.text} className="flex items-center gap-2">
                     {feature.included ? (
                       <Check className="w-5 h-5 text-green-400 flex-shrink-0" />
                     ) : (
@@ -261,9 +264,9 @@ export default function PricingPage() {
                 q: "API erişimi nasıl çalışır?",
                 a: "Business planında API anahtarı alabilir ve kendi uygulamalarınızda ReelForge özelliklerini kullanabilirsiniz.",
               },
-            ].map((faq, index) => (
+            ].map((faq) => (
               <div
-                key={index}
+                key={faq.q}
                 className="bg-[var(--surface)] rounded-xl border border-[var(--border)] p-6"
               >
                 <h4 className="text-white font-medium mb-2">{faq.q}</h4>

@@ -52,10 +52,12 @@ export function VoiceWizard({ onNext, onPrev }: VoiceWizardProps) {
       {/* Voice Grid */}
       <div className="space-y-3">
         {VOICE_OPTIONS.map((voice) => (
-          <div
+          <button
+            type="button"
             key={voice.id}
             onClick={() => handleSelect(voice.id, voice.name)}
-            className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all ${
+            aria-pressed={videoDraft.voiceId === voice.id}
+            className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all w-full text-left ${
               videoDraft.voiceId === voice.id
                 ? "border-[var(--color-primary)] bg-[var(--color-primary)]/10"
                 : "border-[var(--border)] hover:border-[var(--color-primary)]/50 bg-[var(--background)]"
@@ -84,7 +86,7 @@ export function VoiceWizard({ onNext, onPrev }: VoiceWizardProps) {
             {videoDraft.voiceId === voice.id && (
               <Check className="w-5 h-5 text-[var(--color-primary)]" />
             )}
-          </div>
+          </button>
         ))}
       </div>
 

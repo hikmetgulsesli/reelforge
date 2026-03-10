@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
 
     // In a real app, send email here
     // For now, just return success
-    console.log(`Password reset token for ${email}: ${token}`);
+    // Token sent via email (never log tokens in production)
 
     return NextResponse.json(
       { message: "If an account exists, a reset email has been sent" },

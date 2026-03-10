@@ -105,9 +105,9 @@ export default function Home() {
               title: "TTS Seslendirme",
               desc: "AI seslendirme",
             },
-          ].map((feature, i) => (
+          ].map((feature) => (
             <div
-              key={i}
+              key={feature.title}
               className="rounded-lg border p-6 transition-colors hover:border-opacity-50"
               style={{
                 background: "var(--surface)",
@@ -136,7 +136,7 @@ export default function Home() {
       >
         <div className="mx-auto max-w-7xl text-center">
           <p style={{ color: "var(--text-muted)" }}>
-            © 2025 ReelForge. Tüm hakları saklıdır.
+            © {new Date().getFullYear()} ReelForge. Tüm hakları saklıdır.
           </p>
         </div>
       </footer>

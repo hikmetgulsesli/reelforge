@@ -5,7 +5,7 @@ import { DashboardLayout } from "../../components/layout/DashboardLayout";
 import { Header } from "../../components/layout/Header";
 import { useAppStore } from "../../lib/store";
 import { User, Bell, Shield, CreditCard, Palette, Save } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSession } from "next-auth/react";
 
 export default function SettingsPage() {
@@ -17,21 +17,11 @@ export default function SettingsPage() {
     push: true,
     marketing: false,
   });
-  const [profile, setProfile] = useState({
-    name: "",
-    email: "",
+  const [profile, setProfile] = useState(() => ({
+    name: session?.user?.name || "",
+    email: session?.user?.email || "",
     language: "tr",
-  });
-
-  useEffect(() => {
-    if (session?.user) {
-      setProfile((prev) => ({
-        ...prev,
-        name: session.user?.name || "",
-        email: session.user?.email || "",
-      }));
-    }
-  }, [session]);
+  }));
 
   const tabs = [
     { id: "profile", name: "Profil", icon: <User className="w-5 h-5" /> },
