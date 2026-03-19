@@ -27,6 +27,7 @@ interface NavItem {
 
 const mainNavItems: NavItem[] = [
   { name: "Ana Panel", href: "/dashboard", icon: <Home className="w-5 h-5" /> },
+  { name: "Projeler", href: "/projects", icon: <FolderOpen className="w-5 h-5" /> },
   { name: "Video Oluştur", href: "/create", icon: <Sparkles className="w-5 h-5" /> },
   { name: "Kütüphane", href: "/library", icon: <Video className="w-5 h-5" /> },
   { name: "Seri Modu", href: "/series", icon: <FolderOpen className="w-5 h-5" /> },
