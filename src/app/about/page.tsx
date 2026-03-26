@@ -420,7 +420,12 @@ function SkillsGrid() {
 
 function CVDownloadButton() {
   const handleDownload = () => {
-    alert("CV download started! (Demo)");
+    const link = document.createElement("a");
+    link.href = "/cv/Hikmet_Gulesli_CV.pdf";
+    link.download = "Hikmet_Gulesli_CV.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
