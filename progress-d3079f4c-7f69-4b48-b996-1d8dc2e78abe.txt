@@ -1,0 +1,13 @@
+=== US-004: Transaction Form Component ===
+COMPLETED: 2026-03-20T00:25:00Z
+FILES CHANGED: 
+- src/components/TransactionForm.tsx
+- src/__tests__/TransactionForm.test.tsx
+KEY DECISIONS: 
+- Used React hooks (useState, useCallback) for form state management
+- Implemented visual toggle with CSS-in-JS for type selection (green for income, red for expense)
+- Categories reset when type changes to ensure valid selections
+- Amount validation allows only positive decimal numbers
+- Used data-testid attributes for reliable test selection
+- All UI labels in Turkish as per requirements
+DEPENDENCIES ADDED: None (used existing Button component and project utilities)

@@ -118,3 +118,69 @@ h1, h2, h3, h4, h5, h6 {
   background: var(--color-primary);
   color: white;
 }
+
+/* About Page Styles */
+.about-avatar-inner {
+  background-size: 200% 200%;
+  animation: gradientShift 3s ease infinite;
+}
+
+.about-gradient-text {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.about-date-badge {
+  top: -1.5rem;
+}
+
+.about-timeline-card {
+  margin-top: 2rem;
+}
+
+.about-skill-card {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.about-skill-card:nth-child(1) { animation-delay: 0s; }
+.about-skill-card:nth-child(2) { animation-delay: 0.1s; }
+.about-skill-card:nth-child(3) { animation-delay: 0.2s; }
+.about-skill-card:nth-child(4) { animation-delay: 0.3s; }
+.about-skill-card:nth-child(5) { animation-delay: 0.4s; }
+.about-skill-card:nth-child(6) { animation-delay: 0.5s; }
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile responsive timeline */
+@media (max-width: 768px) {
+  .about-timeline-card {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+    margin-top: 2rem;
+  }
+  
+  .about-date-badge {
+    position: relative;
+    left: 0;
+    transform: none;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+}

@@ -1,0 +1,14 @@
+=== US-012: AlbumCover and EmptyState components ===
+COMPLETED: 2026-03-21T17:58:00Z
+FILES CHANGED: 
+  - src/components/ui/AlbumCover.tsx
+  - src/components/ui/EmptyState.tsx
+  - src/components/ui/index.ts
+  - src/__tests__/AlbumCover.test.tsx
+  - src/__tests__/EmptyState.test.tsx
+KEY DECISIONS:
+  - Used data-testid for reliable testing in jsdom environment
+  - Implemented gradient fallback using design tokens from stitch/design-tokens.json
+  - Added conditional role/aria-label for accessibility (only when no image)
+  - Used Lucide icons for consistency with existing codebase
+DEPENDENCIES ADDED: None

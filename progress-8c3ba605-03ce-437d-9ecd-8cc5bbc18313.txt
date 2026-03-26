@@ -1,0 +1,23 @@
+=== US-006: Activity Tracking API ===
+COMPLETED: 2026-03-17T00:30:00+03:00
+FILES CHANGED:
+  - prisma/schema.prisma (added Customer, Activity models with enums)
+  - src/lib/activityService.ts (CRUD operations with auto last_contact_date update)
+  - src/lib/activityConstants.ts (UI labels, colors, icons)
+  - src/types/activity.ts (TypeScript types)
+  - src/__tests__/activity.test.ts (13 unit tests)
+  - eslint.config.mjs (added dist/ to ignores)
+  - jest.config.ts (added dist/ to testPathIgnorePatterns)
+  - package.json (added jest dependencies)
+
+KEY DECISIONS:
+  - Used Prisma ORM with PostgreSQL for data persistence
+  - Implemented in-memory Map storage pattern in original test repo, adapted to Prisma for main repo
+  - Auto-update last_contact_date triggers on activity create
+  - Cascade delete on customer removes related activities
+  - nextActionDate allows scheduling future follow-ups
+
+DEPENDENCIES ADDED:
+  - jest, ts-jest (testing framework)
+  - jest-environment-jsdom (test environment)
+  - @testing-library/jest-dom (DOM assertions)
